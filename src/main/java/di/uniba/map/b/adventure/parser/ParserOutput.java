@@ -25,10 +25,10 @@ public class ParserOutput {
         this.object = object;
     }
 
-    public ParserOutput(Command command, AdvObject object, AdvObject invObejct) {
+    public ParserOutput(Command command, AdvObject advObject, AdvObject invObject){
         this.command = command;
-        this.object = object;
-        this.invObject = invObejct;
+        this.object = advObject;
+        this.invObject = invObject;
     }
 
     public Command getCommand() {

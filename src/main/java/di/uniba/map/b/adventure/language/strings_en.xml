@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phrases>
+
+    <rooms>
+        <hero_bedroom>Bedroom</hero_bedroom>
+        <hero_bedroom_descr>You just found this hidden letter under your bed, you need to find the treasure as soon as possible.</hero_bedroom_descr>
+        <hero_bedroom_look>You are in your bedroom. You can go west to your corridor, but I recommend you to look around first.</hero_bedroom_look>
+        <corridor>Corridor</corridor>
+        <corridor_descr>From the corridor you can go to almost any room in the house. Look around you a bit.</corridor_descr>
+        <corridor_look>You are in the corridor. To the east you can go to your bedroom, to the west to your father's office and to the north to your parents' room.</corridor_look>
+        <office>Office</office>
+        <office_descr>This is you father's office. There is a computer on his desk.</office_descr>
+        <office_look>You are in your father's office. To the east you can go back into the corridor.</office_look>
+        <office_look_v2>You are in your father's office. To the east you can go back to the corridor, to the south you can go to the secret corridor.</office_look_v2>
+        <hidden_corridor>Hidden Aisle</hidden_corridor>
+        <hidden_corridor_descr>Aisle leading to another room blocked by a sensor ...</hidden_corridor_descr>
+        <hidden_corridor_look>You are in the hidden aisle. To the south there is a door, to the north you can go back to the office.</hidden_corridor_look>
+        <hidden_corridor_look_v2>You are in the secret corridor. To the south is the treasure room, to the north you can go back to the office.</hidden_corridor_look_v2>
+        <parents_bedroom>Parents' Bedroom</parents_bedroom>
+        <parents_bedroom_descr>This is your parents' bedroom, check around a bit ...</parents_bedroom_descr>
+        <parents_bedroom_look>You are in your parents' room. You can go south to the corridor.</parents_bedroom_look>
+        <treasure_room>Treasure Room</treasure_room>
+        <treasure_room_descr>It's grandpa's treasure room!</treasure_room_descr>
+        <treasure_room_look>It's grandpa's treasure room, I finally made it!</treasure_room_look>
+    </rooms>
+
+    <objects>
+        <key>key</key>
+        <key_descr>Father's office key.</key_descr>
+        <torch>torch</torch>
+        <torch_descr>This is a torch. I can shed some light with this.</torch_descr>
+        <drawer>drawer</drawer>
+        <drawer_descr>An openable drawer. I can open it.</drawer_descr>
+        <computer_descr>It's a computer, I can use it.</computer_descr>
+        <computer_pass_answer>Enter password</computer_pass_answer>
+        <computer_pass_answer2>Enter password (5 numbers): </computer_pass_answer2>
+        <computer_door_answer>Open door</computer_door_answer>
+        <computer_door_answer2>Hidden room door opened.</computer_door_answer2>
+        <computer_pass_answer_wrong>Access denied.</computer_pass_answer_wrong>
+        <computer_door_answer_opened>You have already unlocked this door.</computer_door_answer_opened>
+        <exit_answer>Exit</exit_answer>
+        <photo>Photo</photo>
+        <photo_descr>A photo that portrays the grandfather. But wait, there's something written behind it ...</photo_descr>
+        <photo_turn>Access Code: 43875</photo_turn>
+        <sensor>sensor</sensor>
+        <sensor_descr>A sensor near a door, I must know how to overcome it.</sensor_descr>
+        <sensor_scan_answer>Scan</sensor_scan_answer>
+        <sensor_scan_answer2>What do you want to scan?</sensor_scan_answer2>
+        <not_right_object>It is not the right object.</not_right_object>
+    </objects>
+
+    <general>
+        <dont_understand>I didn't understand what I have to do! Try another command.</dont_understand>
+        <nothing_there>There is nothing.</nothing_there>
+        <torch_on> I have my flashlight on so I can pass ... </torch_on>
+        <torch_off> I have to turn on the flashlight to pass, I don't see anything ... </torch_off>
+        <torch_no> I need something to shed some light, I don't see anything ... </torch_no>
+        <door_locked> The door is locked. I need a key. I may already have it in my inventory or I need to search it. </door_locked>
+        <inventory>In your imventory there are:</inventory>
+        <nothing_interesting>There is nothing interesting here.</nothing_interesting>
+        <picked>You picked: </picked>
+        <cant_pick>You can't pick this object.</cant_pick>
+        <nothing_to_pick>There isn't nothing to pick here.</nothing_to_pick>
+        <nothing_to_open>There isn't nothing to open here.</nothing_to_open>
+        <opened>You opened: </opened>
+        <founded>You founded: </founded>
+        <add_answer>Do you want to add them to your inventory? Type 'yes' or 'no'.</add_answer>
+        <decision>It's your decision.</decision>
+        <wrong>Please enter a valid value.</wrong>
+        <cant_open>You cannot open this object.</cant_open>
+        <nothing_to_turn>There is nothing to turn here.</nothing_to_turn>
+        <turned>You turned: </turned>
+        <turned_inventory>You turned in your inventory: </turned_inventory>
+        <turned_text>Written text: </turned_text>
+        <cant_turn>This object cannot be turned.</cant_turn>
+        <dont_understand_short>I don't understand.</dont_understand_short>
+        <right_key>I opened the door thanks to the key I found. Now I can enter it!</right_key>
+        <cant_use>The object is not usable!</cant_use>
+        <turnon>Object on.</turnon>
+        <cant_turnon>This object cannot be turned on!</cant_turnon>
+        <is_just_turnedon>The object is already on.</is_just_turnedon>
+        <inventory_turnon>The item must be in your inventory to light it up.</inventory_turnon>
+        <turnoff>Object off.</turnoff>
+        <is_just_turnedoff>The object is already off.</is_just_turnedoff>
+        <founded_treasure>I found Grandpa's treasure!</founded_treasure>
+        <bye>Goodbye!</bye>
+    </general>
+
+    <commands>
+        <command_init>Game commands : </command_init>
+        <look>--look             -> for the current room description</look>
+        <north>--north            -> to go to the room that is north of the current room</north>
+        <south>--south            -> to go to the room that is south of the current room</south>
+        <east>--east             -> to go to the room that is east of the current room</east>
+        <west>--west             -> to go to the room that is west of the current room</west>
+        <inventory2>--inventory        -> to get an overview of all items in the inventory</inventory2>
+        <pick>--pick (object)    -> to pick the item and place it in inventory</pick>
+        <open>--open (object)    -> to open the container object</open>
+        <turn>--turn (object)    -> to turn the current object if possible</turn>
+        <map>--map              -> to see the game map</map>
+        <use>--use (object)     -> to use the object if possible</use>
+        <turn_on>--accendi (object) -> to turn on the object</turn_on>
+        <turn_off>--spegni (object)  -> to turn of the object</turn_off>
+        <exit>--exit             -> to exit from the game</exit>
+    </commands>
+
+</phrases>

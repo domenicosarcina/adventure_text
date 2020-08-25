@@ -5,7 +5,9 @@
  */
 package di.uniba.map.b.adventure.parser;
 
+import di.uniba.map.b.adventure.GameDescription;
 import di.uniba.map.b.adventure.type.AdvObject;
+import di.uniba.map.b.adventure.type.AdvObjectContainer;
 import di.uniba.map.b.adventure.type.Command;
 import java.util.List;
 
@@ -15,66 +17,75 @@ import java.util.List;
  */
 public class Parser {
 
-    private int checkForCommand(String token, List<Command> commands) {
-        for (int i = 0; i < commands.size(); i++) {
-            if (commands.get(i).getName().equals(token) || commands.get(i).getAlias().contains(token)) {
-                return i;
+    public ParserOutput parse(String command, GameDescription game) {
+
+        ParserOutput cmd = new ParserOutput(null, null);
+        String[] string = command.toLowerCase().split(" ");
+        Command stringCommand = new Command(null, null);
+        AdvObject stringAdvObject = null;
+        AdvObject stringInvAdvObject = null;
+
+        //controllo se la stringa è un comando effettivo
+
+        for (int i = 0; i < game.getCommands().size(); i++) {
+            try {
+                if (string[0].equals(game.getCommands().get(i).getName()) || game.getCommands().get(i).getAlias().contains(string[0])) {
+                    stringCommand = new Command(game.getCommands().get(i).getType(), game.getCommands().get(i).getName());
+                }
+            }catch(ArrayIndexOutOfBoundsException e){
+                break;
             }
         }
-        return -1;
-    }
 
-    private int checkForObject(String token, List<AdvObject> obejcts) {
-        for (int i = 0; i < obejcts.size(); i++) {
-            if (obejcts.get(i).getName().equals(token) || obejcts.get(i).getAlias().contains(token)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+        if(stringCommand.getType() != null && string.length > 1){
 
-    /* ATTENZIONE: il parser è implementato in modo abbastanza independete dalla lingua mi riconosce solo 
-    * frasi semplici del tipo <azione> <oggetto> <oggetto> non permette di utilizzare articoli o preposizioni.
-    * L'utilizzo di articoli o preporsizioni lo renderebbero dipendente dalla lingua, o meglio bisognerebbe
-    * realizzare un parser per ogni lingua, prevedendo un'iterfaccia/classe astratta Perser e diverse
-    * implementazioni per ogni lingua.
-    */
-    public ParserOutput parse(String command, List<Command> commands, List<AdvObject> objects, List<AdvObject> inventory) {
-        String cmd = command.toLowerCase().trim();
-        String[] tokens = cmd.split("\\s+");
-        if (tokens.length > 0) {
-            int ic = checkForCommand(tokens[0], commands);
-            if (ic > -1) {
-                if (tokens.length > 1) {
-                    int io = checkForObject(tokens[1], objects);
-                    int ioinv = -1;
-                    if (io < 0 && tokens.length > 2) {
-                        io = checkForObject(tokens[2], objects);
+            //controllo se la stringa contiene un aritcolo
+
+            if (isThereArticle(string[1]) == true) {
+                for (int i = 0; i < game.getObjects().size(); i++) {
+                    if (string[2].equals(game.getObjects().get(i).getName()) || game.getObjects().get(i).getAlias().contains(string[2])) {
+                        stringAdvObject = game.getObjects().get(i);
                     }
-                    if (io < 0) {
-                        ioinv = checkForObject(tokens[1], inventory);
-                        if (ioinv < 0 && tokens.length > 2) {
-                            ioinv = checkForObject(tokens[2], inventory);
-                        }
-                    }
-                    if (io > -1 && ioinv > -1) {
-                        return new ParserOutput(commands.get(ic), objects.get(io), inventory.get(ioinv));
-                    } else if (io > -1) {
-                        return new ParserOutput(commands.get(ic), objects.get(io), null);
-                    } else if (ioinv > -1) {
-                        return new ParserOutput(commands.get(ic), null, inventory.get(ioinv));
-                    } else {
-                        return new ParserOutput(commands.get(ic), null, null);
-                    }
-                } else {
-                    return new ParserOutput(commands.get(ic), null);
                 }
             } else {
-                return new ParserOutput(null, null);
+                for (int i = 0; i < game.getObjects().size(); i++) {
+                    if (string[1].equals(game.getObjects().get(i).getName()) || game.getObjects().get(i).getAlias().contains(string[1])) {
+                        stringAdvObject = game.getObjects().get(i);
+                    }
+                }
             }
-        } else {
-            return null;
+            if(stringAdvObject != null){
+                for(AdvObject o : game.getInventory()){
+                    if(stringAdvObject == o){
+                        stringInvAdvObject = stringAdvObject;
+                    }
+                }
+            }
         }
+
+        if(stringInvAdvObject != null)
+            cmd = new ParserOutput(stringCommand, null, stringInvAdvObject);
+        else if (stringAdvObject != null)
+            cmd = new ParserOutput(stringCommand, stringAdvObject);
+        else if(stringCommand != null)
+            cmd = new ParserOutput(stringCommand, null);
+        else
+            cmd = new ParserOutput(null, null);
+
+        return cmd;
+
+    }
+
+    public boolean isThereArticle(String string){
+
+        boolean isArticle = false;
+
+        if(string.equals("the") || string.equals("il") || string.equals("lo") || string.equals("la") || string.equals("i") || string.equals("gli") || string.equals("le")){
+            isArticle = true;
+        }
+
+        return isArticle;
+
     }
 
 }

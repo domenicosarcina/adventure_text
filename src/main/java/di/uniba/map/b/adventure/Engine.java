@@ -5,59 +5,64 @@
  */
 package di.uniba.map.b.adventure;
 
-import di.uniba.map.b.adventure.games.FireHouseGame;
 import di.uniba.map.b.adventure.parser.Parser;
 import di.uniba.map.b.adventure.parser.ParserOutput;
 import di.uniba.map.b.adventure.type.CommandType;
+import di.uniba.map.b.adventure.language.Language;
 import java.util.Scanner;
 
-/**
- * ATTENZIONE: l'Engine è molto spartano, in realtà demanda la logica alla
- * classe che implementa GameDescription e si occupa di gestire I/O sul
- * terminale.
- *
- * @author pierpaolo
- */
 public class Engine {
 
     private final GameDescription game;
 
     private final Parser parser;
 
-    public Engine(GameDescription game) {
+    public Engine(GameDescription game, Language language) {
         this.game = game;
         try {
-            this.game.init();
+            this.game.init(language);
         } catch (Exception ex) {
             System.err.println(ex);
         }
         parser = new Parser();
     }
 
-    public void run() {
+    public void run(Language language) {
         System.out.println(game.getCurrentRoom().getName());
         System.out.println("================================================");
         System.out.println(game.getCurrentRoom().getDescription());
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
-            ParserOutput p = parser.parse(command, game.getCommands(), game.getCurrentRoom().getObjects(), game.getInventory());
+            ParserOutput p = parser.parse(command, game);
             if (p.getCommand() != null && p.getCommand().getType() == CommandType.END) {
-                System.out.println("Addio!");
-                break;
-            } else {
-                game.nextMove(p, System.out);
-                System.out.println("================================================");
-            }
+                System.out.println(language.getDocument().getElementsByTagName("bye").item(0).getTextContent());
+                System.exit(0);
+            } else if (p.getCommand() != null && p.getCommand().getType() == CommandType.COMMANDS){
+                //stampa comandi
+                    System.out.println(language.getDocument().getElementsByTagName("command_init").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("look").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("north").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("south").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("east").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("west").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("inventory2").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("pick").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("open").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("turn").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("map").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("use").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("turn_on").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("turn_off").item(0).getTextContent());
+                    System.out.println(language.getDocument().getElementsByTagName("exit").item(0).getTextContent());
+                } else {
+                    game.nextMove(p, System.out, language);
+                    System.out.println("================================================");
+                }
         }
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Engine engine = new Engine(new FireHouseGame());
-        engine.run();
-    }
-
 }

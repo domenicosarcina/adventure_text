@@ -5,9 +5,7 @@
  */
 package di.uniba.map.b.adventure.type;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -20,18 +18,32 @@ public class AdvObject {
     private String name;
 
     private String description;
+
+    private String turnableText;
     
     private Set<String> alias;
 
+    private Dialogue dialogue;
+
     private boolean openable = false;
+
+    private boolean ignitable = false;
+
+    private boolean turnedOn = false;
 
     private boolean pickupable = true;
 
-    private boolean pushable = false;
+    private boolean turnable = false;
+
+    private boolean speakable = false;
 
     private boolean open = false;
 
-    private boolean push = false;
+    private boolean usable = false;
+
+    private boolean key = false;
+
+    private Room roomKey = null;
 
     public AdvObject(int id) {
         this.id = id;
@@ -46,6 +58,13 @@ public class AdvObject {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public AdvObject(int id, String name, String description, String textTurnable) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.turnableText = textTurnable;
     }
 
     public AdvObject(int id, String name, String description, Set<String> alias) {
@@ -79,20 +98,18 @@ public class AdvObject {
         this.openable = openable;
     }
 
+    public void setRoomKey(Room room){this.roomKey = room;}
+
+    public Room getRoomKey(){return roomKey;}
+
+    public String getTextTurnable() {return turnableText;}
+
     public boolean isPickupable() {
         return pickupable;
     }
 
     public void setPickupable(boolean pickupable) {
         this.pickupable = pickupable;
-    }
-
-    public boolean isPushable() {
-        return pushable;
-    }
-
-    public void setPushable(boolean pushable) {
-        this.pushable = pushable;
     }
 
     public boolean isOpen() {
@@ -103,13 +120,17 @@ public class AdvObject {
         this.open = open;
     }
 
-    public boolean isPush() {
-        return push;
-    }
+    public boolean isKey(){return key;}
 
-    public void setPush(boolean push) {
-        this.push = push;
-    }
+    public void setKey(boolean key){this.key = key;}
+
+    public boolean isTurnable() {return turnable;}
+
+    public void setTurnable(boolean turnable){ this.turnable = turnable;}
+
+    public boolean isUsable() {return usable;}
+
+    public void setUsable(boolean interaction){ this.usable = interaction;}
 
     public Set<String> getAlias() {
         return alias;
@@ -126,6 +147,22 @@ public class AdvObject {
     public int getId() {
         return id;
     }
+
+    public void setDialogue(Dialogue dialogue){this.dialogue = dialogue;}
+
+    public Dialogue getDialogue(){return dialogue;}
+
+    public void setSpeakable(boolean speakable){this.speakable = speakable;}
+
+    public boolean isSpeakable(){return speakable;}
+
+    public void setTurnedOn(boolean turned){this.turnedOn = turned;}
+
+    public boolean getTurnedOn(){return turnedOn;}
+
+    public void setIgnitable(boolean ignitable){this.ignitable = ignitable;}
+
+    public boolean getIgnitable(){return ignitable;}
 
     @Override
     public int hashCode() {

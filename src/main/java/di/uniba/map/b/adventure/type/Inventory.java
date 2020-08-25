@@ -7,6 +7,7 @@ package di.uniba.map.b.adventure.type;
 
 import java.util.ArrayList;
 import java.util.List;
+import di.uniba.map.b.adventure.type.AdvObject;
 
 /**
  *
@@ -30,5 +31,15 @@ public class Inventory {
 
     public void remove(AdvObject o) {
         list.remove(o);
+    }
+
+    public boolean isThere(AdvObject o){
+        boolean trovato = false;
+        for(AdvObject oggetto : getList()){
+            if(o == oggetto){
+                trovato = true;
+            }
+        }
+        return trovato;
     }
 }

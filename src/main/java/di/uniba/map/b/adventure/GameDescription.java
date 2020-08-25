@@ -9,6 +9,7 @@ import di.uniba.map.b.adventure.parser.ParserOutput;
 import di.uniba.map.b.adventure.type.AdvObject;
 import di.uniba.map.b.adventure.type.Command;
 import di.uniba.map.b.adventure.type.Room;
+import di.uniba.map.b.adventure.language.Language;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public abstract class GameDescription {
     private final List<Command> commands = new ArrayList<>();
 
     private final List<AdvObject> inventory = new ArrayList<>();
+
+    private final List<AdvObject> objects = new ArrayList<>();
 
     private Room currentRoom;
 
@@ -47,8 +50,12 @@ public abstract class GameDescription {
         return inventory;
     }
 
-    public abstract void init() throws Exception;
+    public List<AdvObject> getObjects(){return objects;}
 
-    public abstract void nextMove(ParserOutput p, PrintStream out);
+    public abstract void init(Language language) throws Exception;
+
+    public abstract void nextMove(ParserOutput p, PrintStream out, Language language);
+
+    public abstract void showMap();
 
 }

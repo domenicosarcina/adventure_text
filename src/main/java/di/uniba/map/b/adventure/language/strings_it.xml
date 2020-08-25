@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phrases>
+
+    <rooms>
+        <hero_bedroom>Stanzetta</hero_bedroom>
+        <hero_bedroom_descr>Hai appena trovato questa lettera nascosta sotto il tuo letto, devi trovare il tesoro al più presto.</hero_bedroom_descr>
+        <hero_bedroom_look>Sei nella tua cameretta. Puoi andare ad ovest verso il tuo corridoio, ma prima ti consiglio di guardarti intorno.</hero_bedroom_look>
+        <corridor>Corridoio</corridor>
+        <corridor_descr>Dal corridoio puoi andare in praticamente quasi tutte le stanze della casa. Guardati un po' intorno.</corridor_descr>
+        <corridor_look>Ti trovi nel corridoio. Ad est puoi andare nella tua cameretta, ad ovest verso lo studio di tuo padre e a nord verso la stanza dei tuoi genitori.</corridor_look>
+        <office>Ufficio</office>
+        <office_descr>E' l'ufficio di tuo padre. C'è il suo computer sulla sua scrivania.</office_descr>
+        <office_look>Ti trovi nell'ufficio di tuo padre. Ad est puoi tornare nel corridoio.</office_look>
+        <office_look_v2>Ti trovi nello studio di tuo padre. A est puoi tornare nel corridoio, a sud puoi andare nel corridoio segreto.</office_look_v2>
+        <hidden_corridor>Corridoio Segreto</hidden_corridor>
+        <hidden_corridor_descr>Corridoio che porta verso un'altra stanza bloccata da un sensore...</hidden_corridor_descr>
+        <hidden_corridor_look>Ti trovi nel corriodio segreto. A sud c'è una porta, a nord puoi tornare nello studio.</hidden_corridor_look>
+        <hidden_corridor_look_v2>Ti trovi nel corriodio segreto. A sud c'è la stanza del tesoro, a nord puoi tornare nello studio.</hidden_corridor_look_v2>
+        <parents_bedroom>Stanza Genitori</parents_bedroom>
+        <parents_bedroom_descr>Questa è la stanza dei tuoi genitori, controlla un po' intorno...</parents_bedroom_descr>
+        <parents_bedroom_look>Ti trovi nella stanza dei tuoi genitori. Puoi andare a sud verso il corridoio.</parents_bedroom_look>
+        <treasure_room>Stanza del tesoro</treasure_room>
+        <treasure_room_descr>E' la stanza del tesoro del nonno!</treasure_room_descr>
+        <treasure_room_look>E' la stanza del tesoro del nonno, finalmente ce l'ho fatta!</treasure_room_look>
+    </rooms>
+
+    <objects>
+        <key>chiave</key>
+        <key_descr>Chiave dello studio di papa'.</key_descr>
+        <torch>torcia</torch>
+        <torch_descr>E' una torcia, posso fare luce con questa.</torch_descr>
+        <drawer>cassetto</drawer>
+        <drawer_descr>Un cassetto che posso aprire.</drawer_descr>
+        <computer_descr>E' un computer, posso usarlo.</computer_descr>
+        <computer_pass_answer>Inserisci password</computer_pass_answer>
+        <computer_pass_answer2>Inserire password (5 numeri): </computer_pass_answer2>
+        <computer_door_answer>Apri porta</computer_door_answer>
+        <door_opened>Porta aperta</door_opened>
+        <computer_pass_answer_wrong>Accesso negato</computer_pass_answer_wrong>
+        <computer_door_answer_opened>Hai già sbloccato questa porta.</computer_door_answer_opened>
+        <exit_answer>Esci</exit_answer>
+        <photo>Foto</photo>
+        <photo_descr>Una foto che ritrae il nonno. Però aspetta, c'è qualcosa scritto dietro...</photo_descr>
+        <photo_turn>Codice accesso: 43875</photo_turn>
+        <sensor>sensore</sensor>
+        <sensor_descr>Un sensore vicino ad una porta, devo per forza sapere come superarlo.</sensor_descr>
+        <sensor_scan_answer>Scannerizza</sensor_scan_answer>
+        <sensor_scan_answer2>Cosa vuoi scannerizzare?</sensor_scan_answer2>
+        <not_right_object>Non è l'oggetto giusto</not_right_object>
+    </objects>
+
+    <general>
+        <dont_understand>Non ho capito cosa devo fare! Prova con un altro comando.</dont_understand>
+        <nothing_there>Non c'è nulla.</nothing_there>
+        <torch_on>Ho la torcia accesa quindi posso passare...</torch_on>
+        <torch_off>Devo accendere la torcia per passare, non vedo nulla...</torch_off>
+        <torch_no>Mi serve una cosa per far luce, non vedo nulla...</torch_no>
+        <door_locked>La porta è chiusa a chiave. Mi serve una chiave apposita. Posso averla già nel mio inventario o devo cercarla.</door_locked>
+        <inventory>Nel tuo inventario ci sono:</inventory>
+        <nothing_interesting>Non c'è niente di interessante qui.</nothing_interesting>
+        <picked>Hai raccolto: </picked>
+        <cant_pick>Non puoi raccogliere questo oggetto.</cant_pick>
+        <nothing_to_pick>Non c'è niente da raccogliere qui.</nothing_to_pick>
+        <nothing_to_open>Non c'è niente da aprire qui.</nothing_to_open>
+        <opened>Hai aperto: </opened>
+        <founded>Ho trovato: </founded>
+        <add_answer>Vuoi aggiungerli al tuo inventario? Digita 'si' o 'no'.</add_answer>
+        <decision>E' una tua decisione.</decision>
+        <wrong>Inserisci un valore valido.</wrong>
+        <cant_open>Non puoi aprire questo oggetto.</cant_open>
+        <nothing_to_turn>Non c'è nulla da girare qui.</nothing_to_turn>
+        <turned>Hai girato : </turned>
+        <turned_inventory>Hai girato nel tuo inventario: </turned_inventory>
+        <turned_text>Testo scritto : </turned_text>
+        <cant_turn>Questo oggetto non si può girare.</cant_turn>
+        <dont_understand_short>Non ho ben capito.</dont_understand_short>
+        <right_key>Ho aperto la porta grazie alla chiave che ho trovato. Adesso posso entrarci!</right_key>
+        <cant_use>L'oggetto non è utilizzabile!</cant_use>
+        <turnon>Oggetto acceso.</turnon>
+        <cant_turnon>Questo oggetto non può essere acceso!</cant_turnon>
+        <is_just_turnedon>L'oggetto è già acceso.</is_just_turnedon>
+        <inventory_turnon>L'oggetto deve stare nel tuo inventario per accenderlo.</inventory_turnon>
+        <turnoff>Oggetto spento.</turnoff>
+        <is_just_turnedoff>L'oggetto è già spento.</is_just_turnedoff>
+        <founded_treasure>Ho trovato il tesoro del nonno!</founded_treasure>
+        <bye>Addio!</bye>
+    </general>
+
+    <commands>
+        <command_init>Comandi di gioco : </command_init>
+        <look>--guarda            -> per avere una descrizione della stanza corrente</look>
+        <north>--nord              -> per andare nella stanza che si trova a nord rispetto la stanza corrente</north>
+        <south>--sud               -> per andare nella stanza che si trova a sud rispetto la stanza corrente</south>
+        <east>--est               -> per andare nella stanza che si trova ad est rispetto la stanza corrente</east>
+        <west>--ovest             -> per andare nella stanza che si trova ad ovest rispetto la stanza corrente</west>
+        <inventory2>--inventario        -> per avere una panoramica di tutti gli oggetti presenti nell'inventario</inventory2>
+        <pick>--prendi (oggetto)  -> per prendere l'oggetto ed inserirlo nell'inventario</pick>
+        <open>--apri (oggetto)    -> per aprire l'oggetto contenitore</open>
+        <turn>--gira (oggetto)    -> per girare l'oggetto corrente se possibile</turn>
+        <map>--mappa             -> per vedere la mappa del gioco</map>
+        <use>--usa (oggetto)     -> per utilizzare l'oggetto, se utilizzabile</use>
+        <turn_on>--accendi (oggetto) -> per accendere l'oggetto</turn_on>
+        <turn_off>--spegni (oggetto)  -> per spegnere l'oggetto</turn_off>
+        <exit>--esci              -> per uscire dalla partita</exit>
+    </commands>
+
+</phrases>

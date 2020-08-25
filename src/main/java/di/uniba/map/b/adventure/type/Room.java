@@ -22,7 +22,9 @@ public class Room {
 
     private String look;
 
-    private boolean visible = true;
+    private boolean locked = false;
+
+    private boolean finalRoom = false;
 
     private Room south = null;
 
@@ -60,13 +62,9 @@ public class Room {
         this.description = description;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
+    public void setLocked(boolean locked){ this.locked = locked;}
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+    public boolean isLocked(){return locked;}
 
     public Room getSouth() {
         return south;
@@ -102,6 +100,19 @@ public class Room {
 
     public List<AdvObject> getObjects() {
         return objects;
+    }
+
+    public void setFinalRoom(boolean finalRoom){this.finalRoom = finalRoom;}
+
+    public boolean getFinalRoom(){return finalRoom;}
+
+    public boolean isThere(AdvObject object){
+        boolean trovato = false;
+        for(AdvObject ob : getObjects()){
+            if(object.getName().equals(ob.getName()))
+                trovato = true;
+        }
+        return trovato;
     }
 
     @Override
