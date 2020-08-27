@@ -28,11 +28,11 @@ Per l'avventura testuale sono state definite alcune strutture dati, queste sono:
 
 ***Command***: Definisce il singolo comando di gioco
 
-***Command Type***: Definisce  i tipi di comandi che posso esistere nel gioco
+***Command Type***: Definisce  i tipi di comandi che sono presenti nel gioco
 
 ***Dialogue***: Definsice il dialogo completo, con una lista di Answer. del singolo oggetto
 
-***Inventory***: Definisce la composizione dell'inventario dell'utente, ovvero un insieme di oggetti
+***Inventory***: Definisce la composizione dell'inventario dell'utente, ovvero una lista di oggetti
 
 ***Player***: Definisce il nome dell'utente, personalizzabile ad inizio gioco
 
@@ -74,10 +74,10 @@ Per l'avventura testuale sono state definite alcune strutture dati, queste sono:
 
 #### Answer ####
 
-|     Nome      |            Descrizione            |         Tipo         |
-| :-----------: | :-------------------------------: | :------------------: |
-|    answer     |     frase singola del dialogo     |        String        |
-| actionOnEvent | azioni dovute alla singola scelta | Action.actionOnEvent |
+|     Nome      |             Descrizione              |         Tipo         |
+| :-----------: | :----------------------------------: | :------------------: |
+|    answer     |      frase singola del dialogo       |        String        |
+| actionOnEvent | azionie/i dovute alla singola scelta | Action.actionOnEvent |
 
 
 
@@ -168,6 +168,8 @@ L'utente potrà vedere i comandi digitanto 'comandi' o 'aiuto' e gli apparirà l
 
 ![Commands](./pictures/Commands.png)
 
+E' supportato anche l'utilizzo degli articoli, quello inglese "the", e quelli italiani "il", "lo", "la", "i", "gli", "le".
+
 Quando l'utente troverà la stanza dov'è prensente il tesoro, il programma terminerà.
 
 Seguirà una lista di tutti gli oggetti, e come è possibile utilizzarli.
@@ -195,7 +197,7 @@ Le immagini delle Swing sono presenti nel Manuale Utente.
 
 ### Lambda Expressions
 
-Le lambda expressions sono state implemtate per i "dialoghi" tra l'utente ed alcuni oggetti, ovvero computer e sensore, in quanto l'utente doveva interagire con questi oggetti, ed ogni scelta aveva delle ripercussioni sulla mappa di gioco.
+Le lambda expressions sono state implemtate per i "dialoghi" tra l'utente ed alcuni oggetti, ovvero computer e sensore, in quanto l'utente doveva interagire con questi oggetti, ed ogni scelta avrà delle ripercussioni sulla mappa di gioco.
 
 Ho utilizzato le lambda expressions perchè avevo bisogno di metodi che potevo implementare nel momento in cui ne avevo bisogno e che sarebbero stati diversi per ogni tipo di risposta dell'utente.
 
@@ -203,9 +205,9 @@ Ho utilizzato le lambda expressions perchè avevo bisogno di metodi che potevo i
 
 All'inizio viene creato il dialogo completo per l'oggetto, che comprenderà più risposte. Le singole risposte verranno create subito dopo, e verrà settata l'azione che si compirà se l'utente sceglierà una precisa risposta.
 
-In questo caso c'è una situazione di Lambda Expressions innestate in quanto se l'utente dovesse scegliere di inserire la password, e se la password inserita fosse giusta, all'ora verrà creata una nuova risposta che avrà una propria azione se l'utente dovesse scegliere la nuova risposta appena creata, in questo caso l'azione sarebbe lo sbloccare la stanza CorridoioSegreto.
+In questo caso c'è una situazione di Lambda Expressions innestate in quanto se l'utente dovesse scegliere di inserire la password, e se la password inserita fosse giusta, all'ora verrà creata una nuova risposta che avrà una propria azione assegnata. Se l'utente dovesse scegliere la nuova risposta appena creata, in questo caso l'azione sarebbe sbloccare la stanza CorridoioSegreto.
 
-Le Lambda Expressions sono state utilizzate per il dialogo con l'oggetto sensore.
+Le Lambda Expressions sono state utilizzate per il dialogo con l'oggetto sensore e computer.
 
 ### File
 
@@ -235,3 +237,119 @@ Il thread viene richiamato nello startPanel, poco prima di avviare l'engine ed i
 
 ## 5. Class Diagram
 
+![ClassDiagram](./pictures/Main.jpg)
+
+
+
+## 6. Specifica Algebrica
+
+Specifica Algebrica della classe Room
+
+Sorts: string, boolean, Room, List<AdvObject>, int
+
+Operations:
+
+​	Room(int) -> Room
+
+​	Room(int, string, string) -> Room
+
+​	getName() -> string
+
+​	setName(string) -> Room
+
+​	getDescription() -> string
+
+​	setDescription(string) -> Room
+
+​	setLocked(boolean) -> Room
+
+​	isLocked() -> boolean
+
+​	getSouth() -> Room
+
+​	setSouth(Room) -> Room
+
+​	getNorth() -> Room
+
+​	setNorth(Room) -> Room	
+
+​	getWest() -> Room
+
+​	setWest(Room) -> Room
+
+​	getEast() -> Room
+
+​	setEast(Room) -> Room
+
+​	getObjects() -> List<AdvObject>
+
+​	setFinalRoom(boolean) -> Room
+
+​	getFinalRoom() -> boolean
+
+Per tutti gli operatori che si trovano nella parte delle Osservazioni è sottointeso che come paramentro devono avere un oggetto di tipo Room.
+
+| Osservazioni     |                             |          |                             |                           | Costruttori di Room  |                      |                     |                     |                          |                           |
+| ---------------- | --------------------------- | -------- | --------------------------- | ------------------------- | -------------------- | -------------------- | ------------------- | ------------------- | ------------------------ | ------------------------- |
+|                  | Room(id, name, description) | Room(id) | setDescription(description) | setName(name)             | setSouth(south)      | setNorth(north)      | setWest(west)       | setEast(east)       | setFinalRoom(finalRoom)  | setLocked(locked)         |
+| getName()        | name                        | Null     | setDescription(getName())   | name                      | Error                | Error                | Error               | Error               | Error                    | Error                     |
+| getDescription() | description                 | Null     | description                 | setName(getDescription()) | Error                | Error                | Error               | Error               | Error                    | Error                     |
+| isLocked()       | False                       | False    | Error                       | Error                     | Error                | Error                | Error               | Error               | setFinalRoom(isLocked()) | locked                    |
+| getSouth()       | Null                        | Null     | Error                       | Error                     | south                | setNorth(getSouth()) | setWest(getSouth()) | setEast(getSouth()) | Error                    | Error                     |
+| getNorth()       | Null                        | Null     | Error                       | Error                     | setSouth(getNorth()) | north                | setWest(getNorth()) | setEast(getNorth()) | Error                    | Error                     |
+| getWest()        | Null                        | Null     | Error                       | Error                     | setSouth(getWest())  | setNorth(getWest())  | west                | setEast(getWest()   | Error                    | Error                     |
+| getEast()        | Null                        | Null     | Error                       | Error                     | setSouth(getEast())  | setNorth(getEast())  | setWest(getEast())  | east                | Error                    | Error                     |
+| getObjects()     | <>                          | <>       | Error                       | Error                     | Error                | Error                | Error               | Error               | Error                    | Error                     |
+| getFinalRoom()   | False                       | False    | Error                       | Error                     | Error                | Error                | Error               | Error               | finalRoom                | setLocked(getFinalRoom()) |
+
+Restizioni:
+
+per Room(id, name, description):
+
+​	isThere(Room(id, name, description)) -> error
+
+​	isThere(Room(id)) -> error
+
+per setDescription(description):
+
+​	isLocked(setDescription(description)) -> error
+
+​	getSouth(setDescription(descritpion)) -> error, valido anche per getNorth, getWest e getEast
+
+​	getObjects(setDescription(description)) -> error
+
+​	getFinalRoom(setDescription(description)) -> error
+
+per setName(name): sono le stesse di setDescription
+
+per setSouth(south):
+
+​	getName(setSouth(south)) -> error
+
+​	getDescription(setSouth(south)) -> error
+
+​	isLocked(setSouth(south)) -> error
+
+​	getObjects(setSouth(south)) -> error
+
+​	getFinalRoom(setSouth(south)) -> error
+
+per setNorth(north), setWest(west), setEast(east) valgono le stesse restrizioni
+
+per SetFinalRoom(finalRoom):
+
+​	getName(setFinalRoom(finalRoom)) -> error
+
+​	getDescription(setFinalRomm(finalRoom)) -> error
+
+​	getSouth(setFinalRoom(finalRoom)) -> error
+
+​	getNorth(setFinalRoom(finalRoom)) -> error
+
+​	getWest(setFinalroom(finalRoom)) -> error
+
+​	getEast(setFinalRoom(finalRoom)) -> error
+
+​	getObjects(setFinalRoom(finalRoom)) -> error
+
+per SetLocked(locked) valgono le stesse restrizioni di SetFinalRoom.

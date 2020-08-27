@@ -33,6 +33,7 @@ public class Inventory {
         list.remove(o);
     }
 
+    //controllo se oggetto è presente nell'inventario
     public boolean isThere(AdvObject o){
         boolean trovato = false;
         for(AdvObject oggetto : getList()){

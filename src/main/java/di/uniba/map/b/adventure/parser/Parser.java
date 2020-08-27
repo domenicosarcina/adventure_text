@@ -7,14 +7,8 @@ package di.uniba.map.b.adventure.parser;
 
 import di.uniba.map.b.adventure.GameDescription;
 import di.uniba.map.b.adventure.type.AdvObject;
-import di.uniba.map.b.adventure.type.AdvObjectContainer;
 import di.uniba.map.b.adventure.type.Command;
-import java.util.List;
 
-/**
- *
- * @author pierpaolo
- */
 public class Parser {
 
     public ParserOutput parse(String command, GameDescription game) {
@@ -39,7 +33,7 @@ public class Parser {
 
         if(stringCommand.getType() != null && string.length > 1){
 
-            //controllo se la stringa contiene un aritcolo
+            //controllo se la stringa contiene un aritcolo altrimenti passerò al controllo se la stringa contiene un oggetto
 
             if (isThereArticle(string[1]) == true) {
                 for (int i = 0; i < game.getObjects().size(); i++) {
@@ -76,6 +70,8 @@ public class Parser {
 
     }
 
+
+    //funzione che controlla se la stringa passata è uguale ad un articolo
     public boolean isThereArticle(String string){
 
         boolean isArticle = false;

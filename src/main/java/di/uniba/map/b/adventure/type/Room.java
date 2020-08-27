@@ -24,7 +24,7 @@ public class Room {
 
     private boolean locked = false;
 
-    private boolean finalRoom = false;
+    private boolean finalRoom = false; //se la stanza è quella finale
 
     private Room south = null;
 
@@ -34,7 +34,7 @@ public class Room {
 
     private Room west = null;
     
-    private final List<AdvObject> objects=new ArrayList<>();
+    private final List<AdvObject> objects=new ArrayList<>(); //lista oggetti presenti nella stanza
 
     public Room(int id) {
         this.id = id;
@@ -106,6 +106,7 @@ public class Room {
 
     public boolean getFinalRoom(){return finalRoom;}
 
+    //controllo se oggetto appartiene alla stanza
     public boolean isThere(AdvObject object){
         boolean trovato = false;
         for(AdvObject ob : getObjects()){

@@ -3,9 +3,11 @@ package di.uniba.map.b.adventure.language;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,7 +30,7 @@ public class Language extends Thread{
             System.out.println("\nCaricamento...\n");
         } else{
             lang = new File("../adventure_gate/src/main/java/di/uniba/map/b/adventure/language/strings_en.xml");
-            System.out.println("Loading...\n");
+            System.out.println("\nLoading...\n");
         }
 
         try{

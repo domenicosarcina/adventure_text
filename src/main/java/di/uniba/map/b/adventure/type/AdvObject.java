@@ -19,7 +19,7 @@ public class AdvObject {
 
     private String description;
 
-    private String turnableText;
+    private String turnableText; //testo scritto se oggetto girabile
     
     private Set<String> alias;
 
@@ -27,23 +27,23 @@ public class AdvObject {
 
     private boolean openable = false;
 
-    private boolean ignitable = false;
+    private boolean ignitable = false; //se oggetto può essere acceso/spento
 
-    private boolean turnedOn = false;
+    private boolean turnedOn = false; //se oggetto acceso = true
 
     private boolean pickupable = true;
 
-    private boolean turnable = false;
+    private boolean turnable = false; //se oggetto è girabile
 
-    private boolean speakable = false;
+    private boolean speakable = false; //se oggetto è "parlabile"
 
     private boolean open = false;
 
     private boolean usable = false;
 
-    private boolean key = false;
+    private boolean key = false; //se oggetto è una chiave
 
-    private Room roomKey = null;
+    private Room roomKey = null; //stanza collegata alla chiave
 
     public AdvObject(int id) {
         this.id = id;

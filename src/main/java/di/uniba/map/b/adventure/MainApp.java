@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import di.uniba.map.b.adventure.startPanel;
 
 public class MainApp {
     private JButton playGameButton;
@@ -17,6 +18,10 @@ public class MainApp {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                JComponent comp = (JComponent) e.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
 
                 JFrame frame = new JFrame("Adventure gate by Domenico Sarcina");
                 frame.setPreferredSize(new Dimension(450, 400));

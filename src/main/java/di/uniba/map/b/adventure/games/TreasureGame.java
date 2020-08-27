@@ -42,9 +42,6 @@ public class TreasureGame extends GameDescription {
         Command open = new Command(CommandType.OPEN, "apri");
         open.setAlias(new String[]{"open"});
         getCommands().add(open);
-        Command push = new Command(CommandType.PUSH, "premi");
-        push.setAlias(new String[]{"spingi","attiva", "push"});
-        getCommands().add(push);
         Command turn = new Command(CommandType.TURN, "gira");
         turn.setAlias(new String[]{"turn"});
         getCommands().add(turn);
@@ -133,13 +130,16 @@ public class TreasureGame extends GameDescription {
         computer.setSpeakable(true);
         computer.setUsable(true);
         getObjects().add(computer);
+        //creazione dialogo con oggetto
         Dialogue dialogue1 = new Dialogue();
         computer.setDialogue(dialogue1);
         Answer answer = new Answer();
         answer.setAnswer(language.getDocument().getElementsByTagName("computer_pass_answer").item(0).getTextContent());
+        //azione che si svolge alla scelta di una risposta
         answer.setActionOnEvent(() -> {
             Scanner comando = new Scanner(System.in);
             System.out.print(language.getDocument().getElementsByTagName("computer_pass_answer2").item(0).getTextContent());
+            //scelta risposta tramite numero intero
             int risposta = Integer.parseInt(comando.nextLine());
             if(risposta == 43875){
                 dialogue1.getAnswers().remove(answer);
@@ -223,10 +223,12 @@ public class TreasureGame extends GameDescription {
                     noroom = true;
                 }
             } else if (p.getCommand().getType() == CommandType.SOUTH) {
+                //controllo se è la stanza finale
                 if (getCurrentRoom().getSouth() != null && getCurrentRoom().getSouth().getFinalRoom() == false && getCurrentRoom().getSouth().isLocked() == false) {
                     setCurrentRoom(getCurrentRoom().getSouth());
                     move = true;
                 } else if(getCurrentRoom().getSouth().getFinalRoom() && getCurrentRoom().getSouth().isLocked() == false){
+                    //se è la stanza finale, controllo sull'oggetto torcia, necessaria accesa per entrare nella stanza
                     boolean trovato = false;
                     for(AdvObject o : getInventory()){
                         if(o.getName().equals(language.getDocument().getElementsByTagName("torch").item(0).getTextContent())){
@@ -254,6 +256,7 @@ public class TreasureGame extends GameDescription {
                     noroom = true;
                 }
             } else if (p.getCommand().getType() == CommandType.WEST) {
+                //controllo se la porta è chiusa
                 if (getCurrentRoom().getWest() != null && getCurrentRoom().getWest().isLocked() == false) {
                     setCurrentRoom(getCurrentRoom().getWest());
                     move = true;
@@ -303,6 +306,7 @@ public class TreasureGame extends GameDescription {
                                         out.print(next.getName() + ", ");
                                     }
                                     out.println();
+                                    //scelta se raccogliere oggetti presenti nell'oggetto contenitore
                                     out.println(language.getDocument().getElementsByTagName("add_answer").item(0).getTextContent());
                                     Scanner comando = new Scanner(System.in);
                                     String risposta = comando.nextLine().toLowerCase();
@@ -324,6 +328,7 @@ public class TreasureGame extends GameDescription {
                             out.println(language.getDocument().getElementsByTagName("cant_open").item(0).getTextContent());
                         }
                     }
+                    //nel gioco non sono stati previsti oggetti prendibili ed apribili allo stesso tempo
                     if (p.getInvObject() != null) {
                         out.println(language.getDocument().getElementsByTagName("cant_open").item(0).getTextContent());
                     }
@@ -333,7 +338,9 @@ public class TreasureGame extends GameDescription {
                     out.println(language.getDocument().getElementsByTagName("nothing_to_turn").item(0).getTextContent());
                 }else {
                     if (p.getObject() != null) {
+                        //controllo se l'oggetto è girabile
                         if (p.getObject().isTurnable()) {
+                            //visualizzazione del testo presente dietro
                             out.println(language.getDocument().getElementsByTagName("turned").item(0).getTextContent() + p.getObject().getName());
                             out.println(language.getDocument().getElementsByTagName("turned_text").item(0).getTextContent() + p.getObject().getTextTurnable());
                         } else {
@@ -358,10 +365,14 @@ public class TreasureGame extends GameDescription {
                 if(p.getInvObject() != null){
                     if(p.getInvObject().isUsable()) {
                         if (p.getInvObject().isKey()) {
-                            if (getCurrentRoom().getWest().isLocked() == true && getCurrentRoom().getWest() == p.getInvObject().getRoomKey()) {
-                                out.println(language.getDocument().getElementsByTagName("right_key").item(0).getTextContent());
-                                getCurrentRoom().getWest().setLocked(false);
-                            }
+                            //controllo se l'utente si trova nella stanza vicina per aprire la porta con la chiave,
+                            //non può trovarsi in una stanza distante
+                            if(getCurrentRoom().getWest() != null) {
+                                if (getCurrentRoom().getWest().isLocked() == true && getCurrentRoom().getWest() == p.getInvObject().getRoomKey()) {
+                                    out.println(language.getDocument().getElementsByTagName("right_key").item(0).getTextContent());
+                                    getCurrentRoom().getWest().setLocked(false);
+                                } else out.println(language.getDocument().getElementsByTagName("near_room_key").item(0).getTextContent());
+                            } else out.println(language.getDocument().getElementsByTagName("near_room_key").item(0).getTextContent());
                         }
                     }  else out.println(language.getDocument().getElementsByTagName("cant_use").item(0).getTextContent());
                 }
@@ -369,20 +380,26 @@ public class TreasureGame extends GameDescription {
                     if (p.getObject().isUsable() == false) {
                          out.println(language.getDocument().getElementsByTagName("cant_use").item(0).getTextContent());
                     }
+                    //controllo se l'oggetto è "parlabile"
                     if(p.getObject().isSpeakable()) {
                         boolean error = true;
                         while (error) {
                             int j = 0;
+                            int i = 0;
                             Scanner comando = new Scanner(System.in);
+
                             for (Answer ans : p.getObject().getDialogue().getAnswers()) {
                                 out.println(j + 1 + ". " + p.getObject().getDialogue().getAnswers().get(j).getAnswer());
                                 j = j + 1;
                             }
                             try {
-                                Integer risposta = Integer.parseInt(comando.nextLine());
-                                if (p.getObject().getDialogue().getAnswers().get(risposta - 1).getActionOnEvent() != null) {
-                                    p.getObject().getDialogue().getAnswers().get(risposta - 1).getActionOnEvent().action();
-                                } else if (p.getObject().getDialogue().getAnswers().get(risposta-1).getAnswer().equals(language.getDocument().getElementsByTagName("exit_answer").item(0).getTextContent())) {
+                                int risposta = comando.nextInt();
+                                risposta = risposta -1;
+                                if (p.getObject().getDialogue().getAnswers().get(risposta).getActionOnEvent() != null) {
+                                    //azione collegata alla risposta, memorizzata prima con le lambda expressions
+                                    p.getObject().getDialogue().getAnswers().get(risposta).getActionOnEvent().action();
+                                } else if (p.getObject().getDialogue().getAnswers().get(risposta).getAnswer().equals(language.getDocument().getElementsByTagName("exit_answer").item(0).getTextContent())) {
+                                    //risposta "esci"
                                     error = false;
                                 } else {
                                     out.println(language.getDocument().getElementsByTagName("dont_understand_short").item(0).getTextContent());
@@ -405,7 +422,9 @@ public class TreasureGame extends GameDescription {
                     } else out.println(language.getDocument().getElementsByTagName("cant_turnon").item(0).getTextContent());
                 }
                 if(p.getInvObject() != null){
+                    //controllo se l'oggetto è accendibile/spegnibile
                     if(p.getInvObject().getIgnitable()){
+                        //controllo se è gia acceso altrimenti lo accendo
                         if(p.getInvObject().getTurnedOn() == true){
                             out.println(language.getDocument().getElementsByTagName("is_just_turnedon").item(0).getTextContent());
                         } else {
@@ -426,6 +445,7 @@ public class TreasureGame extends GameDescription {
                 }
                 if(p.getInvObject() != null){
                     if(p.getInvObject().getIgnitable()){
+                        //controllo se l'oggetto è acceso e quindi lo spengo, altrimenti è già spento
                         if(p.getInvObject().getTurnedOn() == true){
                             out.println(language.getDocument().getElementsByTagName("turnoff").item(0).getTextContent());
                             p.getInvObject().setTurnedOn(false);
@@ -433,6 +453,7 @@ public class TreasureGame extends GameDescription {
                     } else out.println(language.getDocument().getElementsByTagName("cant_turnon").item(0).getTextContent());
                 }
             }
+            //se stanza corrente è stanza finale, allora il gioco è finito
             if(getCurrentRoom().getFinalRoom()){
                 out.println(language.getDocument().getElementsByTagName("founded_treasure").item(0).getTextContent());
                 System.exit(0);

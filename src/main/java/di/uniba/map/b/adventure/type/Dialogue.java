@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Dialogue {
 
-    private List<Answer> answers = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>(); //lista risposta dell'oggetto
 
     public List<Answer> getAnswers(){return answers;}
 

@@ -20,6 +20,10 @@ public class startPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                JComponent comp = (JComponent) e.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+
                  String text = textField1.getText();
 
                  String lang = comboBox1.getSelectedItem().toString();
@@ -55,6 +59,11 @@ public class startPanel {
         BackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                JComponent comp = (JComponent) e.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+
                 JFrame frame = new JFrame("Adventure gate by Domenico Sarcina");
                 frame.setPreferredSize(new Dimension(450, 400));
                 frame.setContentPane(new MainApp().getMainJPanel());
