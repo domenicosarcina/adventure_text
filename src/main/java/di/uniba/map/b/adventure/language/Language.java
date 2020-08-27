@@ -26,10 +26,10 @@ public class Language extends Thread{
         //caricamento dei file per la lingua contententi le stringhe del gioco
 
         if(language.equals("Italiano")) {
-            lang = new File("../adventure_gate/src/main/java/di/uniba/map/b/adventure/language/strings_it.xml");
+            lang = new File("./src/main/java/di/uniba/map/b/adventure/language/strings_it.xml");
             System.out.println("\nCaricamento...\n");
         } else{
-            lang = new File("../adventure_gate/src/main/java/di/uniba/map/b/adventure/language/strings_en.xml");
+            lang = new File("./src/main/java/di/uniba/map/b/adventure/language/strings_en.xml");
             System.out.println("\nLoading...\n");
         }
 
